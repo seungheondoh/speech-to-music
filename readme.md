@@ -1,5 +1,5 @@
 ## Textless Speech-to-Music Retrieval Using Emotion Similarity
-This is a PyTorch implementation of [Textless Speech-to-Music Retrieval Using Emotion Similarity](#) for multi-modal music representation learning. Check our [demo](https://seungheondoh.github.io/speech-to-music-demo//)
+This is a PyTorch implementation of [Textless Speech-to-Music Retrieval Using Emotion Similarity](#) for multi-modal music representation learning. Check our [demo](https://seungheondoh.github.io/speech-to-music-demo/)
 
 > [**Textless Speech-to-Music Retrieval Using Emotion Similarity**](#)   
 > SeungHeon Doh, Minz Won, Keunwoo Choi, Juhan Nam   
@@ -17,7 +17,7 @@ This is a PyTorch implementation of [Textless Speech-to-Music Retrieval Using Em
 </p>
 
 ### Main Results
-The following results are precision@5. See our paper for more results on MRR, nDCG@5
+The following results are precision@5. See our paper for more results on MRR, nDCG@5. **Pre-trained models** and **configs** can be found at [Zenodo-Pretrained](https://zenodo.org/record/7341484).
 
 <table>
 <thead>
@@ -31,63 +31,63 @@ The following results are precision@5. See our paper for more results on MRR, nD
 </thead>
 <tbody>
   <tr>
-    <td>Triplet</td>
+    <td>Triplet (Basline)</td>
     <td>Text</td>
     <td>0.68±0.03</td>
     <td>0.11±0.05</td>
     <td>0.17±0.08</td>
   </tr>
   <tr>
-    <td>Triplet + SP</td>
+    <td>Triplet + Structure Preserving</td>
     <td>Text</td>
     <td>0.68±0.02</td>
     <td>0.16±0.06</td>
     <td>0.16±0.10</td>
   </tr>
   <tr>
-    <td>Triplet + EmoSim</td>
+    <td>Triplet + EmoSim Regularization</td>
     <td>Text</td>
     <td>0.69±0.02</td>
     <td>0.18±0.05</td>
     <td>0.1±0.03</td>
   </tr>
   <tr>
-    <td>Triplet</td>
+    <td>Triplet (Basline)</td>
     <td>Audio</td>
     <td>0.67±0.04</td>
     <td>0.65±0.03</td>
     <td>0.73±0.06</td>
   </tr>
   <tr>
-    <td>Triplet + SP</td>
+    <td>Triplet + Structure Preserving</td>
     <td>Audio</td>
     <td>0.65±0.02</td>
     <td>0.65±0.05</td>
     <td>0.73±0.10</td>
   </tr>
   <tr>
-    <td>Triplet + EmoSim</td>
+    <td>Triplet + EmoSim Regularization</td>
     <td>Audio</td>
     <td>0.68±0.03	</td>
     <td>0.67±0.02	</td>
     <td>0.79±0.04</td>
   </tr>
   <tr>
-    <td>Triplet</td>
+    <td>Triplet (Basline)</td>
     <td>Fusion</td>
     <td>0.73±0.05</td>
     <td>0.65±0.02</td>
     <td>0.74±0.10</td>
   </tr>
   <tr>
-    <td>Triplet + SP</td>
+    <td>Triplet + Structure Preserving</td>
     <td>Fusion</td>
     <td>0.74±0.02</td>
     <td>0.66±0.02</td>
     <td>0.75±0.07</td>
   </tr>
   <tr>
-    <td>Triplet + EmoSim</td>
+    <td>Triplet + EmoSim Regularization</td>
     <td>Fusion</td>
     <td>0.75±0.02</td>
     <td>0.63±0.05</td>
@@ -100,6 +100,8 @@ The following results are precision@5. See our paper for more results on MRR, nD
 We propose emotion similarity regularization (EmoSim), modified version of RankSim (Gong et al), for cross-domain retrieval task. An overview of our approach is shown in Figure. In practice, our goal is to encourage alignment between the similarity of neighbors in emotion space S_y and the similarity of neighbors in feature space S_z. The EmoSim regularization term is formulated as follows:
 
 ```
+# code reference: https://github.com/BorealisAI/ranksim-imbalanced-regression
+
 def batchwise_emotion_regularizer(features, targets):
     # Reduce ties and boost relative representation of infrequent labels
     unique_batch = torch.unique(targets, dim=1)
