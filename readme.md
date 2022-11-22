@@ -99,14 +99,19 @@ The following results are precision@5. See our paper for more results on MRR, nD
 ### Emotion Similarity Regularization (EmoSim)
 We propose emotion similarity regularization (EmoSim), modified version of RankSim (Gong et al), for cross-domain retrieval task. An overview of our approach is shown in Figure. In practice, our goal is to encourage alignment between the similarity of neighbors in emotion space S_y and the similarity of neighbors in feature space S_z. The EmoSim regularization term is formulated as follows:
 
-```
-# code reference: https://github.com/BorealisAI/ranksim-imbalanced-regression
+```python
+import torch
+import torch.nn.functional as F
 
-def batchwise_emotion_regularizer(features, targets):
-    # Reduce ties and boost relative representation of infrequent labels
-    unique_batch = torch.unique(targets, dim=1)
+# code reference: https://github.com/BorealisAI/ranksim-imbalanced-regression
+def batchwise_emotion_regularizer(S_z, S_y):
+    """
+    S_z: feature similarity between speech and music
+    S_y: emotion similarity between speech and music
+    """
+    unique_batch = torch.unique(S_y, dim=1)
     unique_pred = []
-    for pred, target, unique_item in zip(features, targets, unique_batch):
+    for pred, target, unique_item in zip(S_z, S_y, unique_batch):
         indices = torch.stack([random.choice((target==i).nonzero()[0]) for i in unique_item])
         unique_pred.append(pred[indices])
     emotion_feature = torch.stack(unique_pred)
