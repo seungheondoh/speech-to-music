@@ -221,10 +221,11 @@ We would like to thank the [Story2Music](https://github.com/minzwon/text2music-e
 ### Citation
 Please consider citing our paper in your publications if the project helps your research. BibTeX reference is as follow.
 ```
-@inproceedings{toward2023doh,
+@inproceedings{doh2023textless,
   title={Textless Speech-to-Music Retrieval Using Emotion Similarity},
-  author={SeungHeon Doh, Minz Won, Keunwoo Choi, Juhan Nam},
-  booktitle = {},
-  year={2023}
+  author={Doh, SeungHeon and Won, Minz and Choi, Keunwoo and Nam, Juhan},
+  booktitle={ICASSP 2023-2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  year={2023},
+  organization={IEEE}
 }
 ```
